@@ -1,0 +1,117 @@
+: ball
+	0x70 0xF8 0xF8 0xF8 0x70 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+: Lpaddle
+	0x00 0x00 0x00 0x40 0x60 0x60 0x60 0x60 0x60 0x40 0x00 0x00 0x00 0x00 0x00
+: Rpaddle
+	0x00 0x00 0x00 0x02 0x06 0x06 0x06 0x06 0x06 0x02 0x00 0x00 0x00 0x00 0x00
+: ball2
+	0x60 0xF0 0xF0 0x60 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00
+: main 
+		i := initialiseGame # Call initialization function
+		load v7 # Load the registers with initial values
+		clear
+		loop
+			vf := delay
+			if vf != 0 then
+		again
+
+		# Ball1 Initialization
+		v8 := 29 # Ball1 X position (middle of screen)
+		v9 := 14 # Ball1 random Y position
+		va := 1 # Ball1 X velocity
+		vb := 1 # Ball1 Y velocity
+		
+		# Ball2 Initialization
+		vC := 29 # Ball2 initial X position
+		vD := 15 # Ball2 random Y position
+		vE := -1 # Ball2 X velocity
+		vB := -1 # Ball2 Y velocity (using vB)
+
+		loop
+			clear
+			
+			# Ball1 Movement
+			i := ball # Load ball1 sprite
+			sprite v8 v9 15 # Display ball1
+			v8 += va # Update Ball1 X position
+			v9 += vb # Update Ball1 Y position
+
+			# Ball1 Y boundaries
+			if v9 == 28 then
+				vb += 255 # Reverse Y direction
+			if v9 == 0 then
+				vb += 1
+
+			# Ball1 X boundaries
+			if v8 == 0 then
+				va += 1 # Reverse X direction
+			if v8 == 61 then
+				va -= 1
+
+			# Ball2 Movement
+			i := ball2 # Load ball2 sprite
+			sprite vC vD 15 # Display ball2
+			vC += vE # Update Ball2 X position
+			vD += vB # Update Ball2 Y position
+			
+			# Ball2 Y boundaries
+			if vD == 28 then
+				vB += 255 # Reverse Y direction
+			if vD == 0 then
+				vB += 1
+
+			# Ball2 X boundaries
+			if vC == 0 then
+				vE += 1 # Reverse X direction
+			if vC == 61 then
+				vE -= 1
+			
+			# Left Paddle Section (reuses v0 and v1)
+			
+			i := Lpaddle
+			sprite v0 v1 15 # Display left paddle
+			
+			if v4 key then # Q key to move up
+				v1 -= 1
+				if v1 == 0 then v1 += 1 # Prevent going off-screen
+			if v5 key then # A key to move down
+				v1 += 1
+				if v1 == 23 then v1 -= 1 # Prevent going off-screen
+				
+			if vf == 1 begin
+				
+				vf := key
+				jump main
+			end
+			# Right Paddle Section (reuses v2 and v3)
+			
+			i := Rpaddle
+			sprite v2 v3 15 # Display right paddle
+			
+			if v6 key then # F key to move down
+				v3 += 1
+				if v3 == 23 then v3 -= 1 # Prevent going off-screen
+			if v7 key then # R key to move up
+				v3 -= 1
+				if v3 == 0 then v3 += 1 # Prevent going off-screen
+
+			if vf == 1 begin
+				vf := key
+				jump main
+			end
+			
+			if vf == 0 then
+				again #keep looping game
+					
+			
+
+: initialiseGame
+	1		# v0 - Left paddle X position
+	10	# v1 - Left paddle Y position
+	55	# v2 - Right paddle X position
+	10	# v3 - Right paddle Y position
+	:byte OCTO_KEY_Q	# v4 - Q key for left paddle up
+	:byte OCTO_KEY_A	# v5 - A key for left paddle down
+	:byte OCTO_KEY_F	# v6 - F key for right paddle down
+	:byte OCTO_KEY_R	# v7 - R key for right paddle up
+	
