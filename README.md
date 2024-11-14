@@ -60,16 +60,18 @@ register in the programming language and reversed the aim of the game to dodge t
  moves quick it skips the border check and goes thorugh to the other side.
 
  
-
+12th day
 All I had left was to add the ball to paddle collision and I would have  the game done unless I wanted to add some extra parts 
-to the game like add more functionality or change the normal ball to be faster perhaps. 
+to the game like add more functionality or change the normal ball to be faster perhaps.
 
- 
-
+15th Day
 All that was required to check if the ball hit the paddle was these lines written right after the code for moving the left and right paddle. 
 It checks if the overflow register(vf) is equal to 1 meaning if the images overlap in any way, then we reassign vf to equal any key 
 in the chip8 keyboard and then when a key is pressed it jumps back to main and plays the game. 
 
+I know this project isnt project and there is a couple lying around bugs but the circumstances of learning a new language 
+and trying to learn it quickly and adapt. This has thought me quick learning and adaptability along with time management.It was
+my first time using the virtual machine part of a langauge so it was very intriguing and insightful.
  
 
  
