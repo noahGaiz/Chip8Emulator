@@ -32,7 +32,7 @@ Problems I Ran Into:
 
  
 
-Part 1 (Chip 8 Program Pong) 
+Part 1 (Chip 8 Program Pong) This is the first half the project is just to make a chip8 game.
 
 1st Day:
 Researching and looking at manuals to learn Chip8 I started making progress making the sprites for the game. Before having an emulator made, 
