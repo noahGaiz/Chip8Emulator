@@ -1,4 +1,4 @@
-My Project: 
+My Project: Chip8 Emulator In C (Currently Paused as too busy)
 
 How I got my Idea: 
 
